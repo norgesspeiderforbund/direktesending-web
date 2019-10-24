@@ -110,5 +110,6 @@ body {
     }
     .youtube {
         width: 95vw;
+        margin-right: 0;
     }
 }
