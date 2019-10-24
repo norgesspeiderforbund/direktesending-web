@@ -15,3 +15,8 @@
     color: white;
     border: none;
 }
+
+.inputtext {
+    padding: 10px;
+    border-radius: 5px;
+}
