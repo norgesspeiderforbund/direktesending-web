@@ -17,6 +17,9 @@
         <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
 
         <script>
+
+            const email = 'andreas.roste+firebaselogin@rugge.org';
+
             // Your web app's Firebase configuration
             var firebaseConfig = {
                 apiKey: "AIzaSyCL4fl3EhPZ6UJW5xxiXsVL4lBZ0eJ1Mf8",
@@ -78,11 +81,10 @@
                     url: 'https://streaming.speiding.no/admin.html',
                     handleCodeInApp: true,
                 };
-                auth.sendSignInLinkToEmail('andreas2101+streaminglogin@gmail.com', actionCodeSettings).then(function () {
-                    window.localStorage.setItem('emailForSignIn', 'andreas2101+streaminglogin@gmail.com');
+                auth.sendSignInLinkToEmail(email, actionCodeSettings).then(function () {
                     document.getElementById('loginbtn').toggleAttribute('disabled');
                 }).catch(function () {
-                    alert('En feil oppsto.');
+                    document.getElementById('loginbtn').toggleAttribute('disabled');
                 });
             }
 
