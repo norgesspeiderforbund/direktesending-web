@@ -99,8 +99,8 @@
             }
 
             function getTime() {
-                const hours = (new Date()).getUTCHours();
-                const mins = (new Date()).getUTCMinutes();
+                const hours = (new Date()).getHours();
+                const mins = (new Date()).getMinutes();
                 return pad(hours) + ":" + pad(mins);
             }
 

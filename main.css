@@ -31,6 +31,7 @@ body {
 
 .flex {
     display: flex;
+    align-items: center;
 }
 
 .big {
@@ -48,6 +49,8 @@ body {
     display: inline-block;
     margin-right: 10px;
     border-radius: 5px;
+    align-self: center;
+    justify-self: 
 }
 
 .content {
@@ -94,9 +97,18 @@ body {
         margin-left: 0;
     }
     .flex {
-        flex-direction: column;
+        width: 95vw;
+    }
+    .flex-2 {
+        flex-direction: column !important;
     }
     .messages {
-        width: 50vw;
+        width: 95vw;
+    }
+    .content{
+        margin: 10px auto;
+    }
+    .youtube {
+        width: 95vw;
     }
 }
