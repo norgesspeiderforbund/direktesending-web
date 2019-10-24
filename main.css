@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'DINOT';
+    src: url("dinot.otf");
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: 'DINOT', sans-serif;
+}
+
+.heading {
+    width: 100vw;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    height: 62px;
+}
+
+.topbar {
+
+}
+
+.logo {
+    height: 100vw;
+    max-height: 150%;
+    margin-left: 10vw;
+    margin-top: 2px;
+}
+
+.content {
+    padding: 50px;
+    padding-top: 20px;
+    display: flex;
+}
+
+.youtube {
+    width: 30vw;
+}
+
+@media screen and (max-width: 1000px) {
+    .logo {
+        margin-left: 0;
+    }
+}
