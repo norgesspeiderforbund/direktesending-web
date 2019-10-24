@@ -39,31 +39,42 @@
             }
 
             const db = firebase.database();
+            const auth = firebase.auth();
 
-            /*db.ref('/messages').on('value', function (s) {
+            db.ref('/messages').on('value', function (s) {
 
                 console.log(s.val());
 
-                s.val().forEach(function (message) {
-                    let element = document.createElement('div');
-                    element.className = 'message';
+                document.getElementById('messages').innerHTML = '';
 
-                    let text_el = document.createElement('div');
-                    text_el.className = 'message-text';
-                    text_el.innerHTML = message.text;
+                for (const msg in s.val()) {
+                    if (s.val().hasOwnProperty(msg)) {
+                        const message = s.val()[msg];
 
-                    let timestamp_el = document.createElement('div');
-                    timestamp_el.className = 'message-time';
-                    timestamp_el.innerText = message.time;
+                        let element = document.createElement('div');
+                        element.className = 'message';
 
-                    element.appendChild(timestamp_el);
-                    element.appendChild(text_el);
+                        let text_el = document.createElement('div');
+                        text_el.className = 'message-text';
+                        text_el.innerHTML = message.text;
 
-                    document.getElementById('messages').prepend(element);
-                })
-            });*/
+                        let timestamp_el = document.createElement('div');
+                        timestamp_el.className = 'message-time';
+                        timestamp_el.innerText = message.time;
 
-            const auth = firebase.auth();
+                        let deletebtn = document.createElement('button');
+                        deletebtn.innerText = 'X';
+                        deletebtn.className = 'deletebtn';
+                        deletebtn.setAttribute('onClick', 'deletemsg("' + msg + '")');
+
+                        element.appendChild(timestamp_el);
+                        element.appendChild(text_el);
+                        element.appendChild(deletebtn);
+
+                        document.getElementById('messages').prepend(element);
+                    }
+                }
+            });
 
             auth.onAuthStateChanged(function (user) {
                 if (user) {
@@ -74,6 +85,10 @@
                     document.getElementById('noauth').classList.remove('hidden');
                 }
             });
+
+            function deletemsg(id) {
+                db.ref('/messages/' + id).remove();
+            }
 
             function pad(value) {
                 if (value < 10) {
@@ -123,20 +138,18 @@
     </head>
 
     <body>
-        <div id="noauth">
+        <div id="auth">
             <button onclick="login()" class="login" name="loginbtn">Send innloggingslenke</button>
         </div>
-        <div id="auth">
+        <div id="noauth">
             <div class="heading">
                 <img src="https://speiding.no/assets/images/logo.png" alt="" class="logo">
                 <span class="live-text">&#9679; Direkte</span>
             </div>
             <div class="content">
                 <h1 class="big">Streaming admin</h1>
-                <div class="flex">
-                    <input type="text" id="inputtext" onkeydown="keydown(event)" placeholder="Tekst her...">
-                    <button>Publiser</button>
-                </div>
+                <input type="text" id="inputtext" onkeydown="keydown(event)" placeholder="Tekst her..." />
+                <div id="messages"></div>
             </div>
         </div>
     </body>
