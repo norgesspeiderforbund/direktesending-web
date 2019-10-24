@@ -1,0 +1,17 @@
+.hidden {
+    visibility: hidden;
+}
+
+.login {
+    padding: 30px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #da4453;
+    color: white;
+    border: none;
+}

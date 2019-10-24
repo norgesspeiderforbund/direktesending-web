@@ -6,11 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="admin.css">
         <title>Norges speiderforbund - Direktesendinger</title>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
 
@@ -30,18 +32,18 @@
 
             const db = firebase.database();
 
-            db.ref('/messages').on('value', function(s) {
+            db.ref('/messages').on('value', function (s) {
 
                 console.log(s.val());
 
                 s.val().forEach(function (message) {
                     let element = document.createElement('div');
                     element.className = 'message';
-                    
+
                     let text_el = document.createElement('div');
                     text_el.className = 'message-text';
                     text_el.innerHTML = message.text;
-                    
+
                     let timestamp_el = document.createElement('div');
                     timestamp_el.className = 'message-time';
                     timestamp_el.innerText = message.time;
@@ -52,24 +54,55 @@
                     document.getElementById('messages').prepend(element);
                 })
             });
+
+            const auth = firebase.auth();
+
+            auth.onAuthStateChanged(function (user) {
+                if (user) {
+                    document.getElementById('auth').classList.remove('hidden');
+                    document.getElementById('noauth').classList.add('hidden');
+                } else {
+                    document.getElementById('auth').classList.add('hidden');
+                    document.getElementById('noauth').classList.remove('hidden');
+                }
+            })
+
+
+            function login() {
+                var actionCodeSettings = {
+                    url: 'https://streaming.speiding.no/admin.html',
+                    handleCodeInApp: true,
+                };
+                auth.sendSignInLinkToEmail('andreas2101+streaminglogin@gmail.com', actionCodeSettings).then(function() {
+                    window.localStorage.setItem('emailForSignIn', 'andreas2101+streaminglogin@gmail.com');
+                    document.getElementById('loginbtn').toggleAttribute('disabled');
+                }).catch(function() {
+                    alert('En feil oppsto.');
+                });
+            }
+
         </script>
 
     </head>
 
     <body>
-        <div class="heading">
-            <img src="https://speiding.no/assets/images/logo.png" alt="" class="logo">
+        <div id="noauth">
+            <button onclick="login()" class="login" name="loginbtn">Send innloggingslenke</button>
         </div>
-        <div class="content">
-            <div class="flex">
-                <h1 class="big">KL/KS samling</h1>
-                <div>
-                    <span class="live-text">&#9679; Direkte</span>
-                </div>
+        <div id="auth">
+            <div class="heading">
+                <img src="https://speiding.no/assets/images/logo.png" alt="" class="logo">
             </div>
-            <div class="flex">
-                <iframe class="youtube" src="https://www.youtube.com/embed/oMrv7HpPjNU?&autoplay=1" frameborder="0"></iframe>
-                <div class="messages" id="messages"></div>
+            <div class="content">
+                <div class="flex">
+                    <h1 class="big">Streaming admin</h1>
+                    <div>
+                        <span class="live-text">&#9679; Direkte</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <textarea id="text"></textarea>
+                </div>
             </div>
         </div>
     </body>

@@ -3,6 +3,10 @@
     src: url("dinot.otf");
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html,
 body {
     margin: 0;
@@ -18,29 +22,81 @@ body {
     height: 62px;
 }
 
-.topbar {
-
-}
-
 .logo {
-    height: 100vw;
-    max-height: 150%;
+    width: 280px;
+    max-height: 140%;
     margin-left: 10vw;
-    margin-top: 2px;
+    transform: translateY(7px);
 }
 
-.content {
-    padding: 50px;
-    padding-top: 20px;
+.flex {
     display: flex;
 }
 
-.youtube {
-    width: 30vw;
+.big {
+    flex:1;
 }
+
+.live-text {
+    background: red;
+    color: white;
+    box-shadow: 0 0 10px rgba(255,0,0,0.8);
+    text-transform: uppercase;
+    padding: 5px;
+    font-size: 70%;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.content {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+    margin-top: 60px;
+}
+
+.youtube {
+    width: 50vw;
+    margin-right: 10px;
+    height: 500px;
+}
+
+.messages {
+    width: 30vw;
+    height: 500px;
+    background: #e7e4df;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.message {
+    border-bottom: 1px dotted rgba(0,0,0,0.4);
+    padding: 10px;
+}
+
+.message-time {
+    display: inline-block;
+    color: #888;
+    margin-right: 10px;
+}
+
+.message-text {
+    display: inline-block;
+
+}
+
+
 
 @media screen and (max-width: 1000px) {
     .logo {
         margin-left: 0;
+    }
+    .flex {
+        flex-direction: column;
+    }
+    .messages {
+        width: 50vw;
     }
 }
