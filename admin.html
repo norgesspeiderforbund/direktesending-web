@@ -86,6 +86,13 @@
                 }
             });
 
+            setInterval(function() {
+                const hours = (new Date()).getHours();
+                const mins = (new Date()).getMinutes();
+                const secs = (new Date()).getSeconds();
+                document.getElementById('clock').innerText = pad(hours) + ":" + pad(mins) + ":" + pad(secs);
+            }, 1000);
+
             function deletemsg(id) {
                 db.ref('/messages/' + id).remove();
             }
@@ -144,10 +151,12 @@
         <div id="auth">
             <div class="heading">
                 <img src="https://speiding.no/assets/images/logo.png" alt="" class="logo">
-                <span class="live-text">&#9679; Direkte</span>
             </div>
             <div class="content">
-                <h1 class="big">Streaming admin</h1>
+                <div class="flex">
+                    <h1 class="big">Streaming admin</h1>
+                    <h2 id="clock"></h2>
+                </div>
                 <input type="text" id="inputtext" onkeydown="keydown(event)" placeholder="Tekst her..." />
                 <div id="messages"></div>
             </div>
