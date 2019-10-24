@@ -34,6 +34,8 @@
 
                 console.log(s.val());
 
+                document.getElementById('messages').innerHTML = '';
+
                 for (const msg in s.val()) {
                     if (s.val().hasOwnProperty(msg)) {
                         const message = s.val()[msg];
