@@ -30,6 +30,11 @@
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
 
+
+            if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+                firebase.auth().signInWithEmailLink(email, window.location.href);
+            }
+
             const db = firebase.database();
 
             db.ref('/messages').on('value', function (s) {
@@ -73,10 +78,10 @@
                     url: 'https://streaming.speiding.no/admin.html',
                     handleCodeInApp: true,
                 };
-                auth.sendSignInLinkToEmail('andreas2101+streaminglogin@gmail.com', actionCodeSettings).then(function() {
+                auth.sendSignInLinkToEmail('andreas2101+streaminglogin@gmail.com', actionCodeSettings).then(function () {
                     window.localStorage.setItem('emailForSignIn', 'andreas2101+streaminglogin@gmail.com');
                     document.getElementById('loginbtn').toggleAttribute('disabled');
-                }).catch(function() {
+                }).catch(function () {
                     alert('En feil oppsto.');
                 });
             }
