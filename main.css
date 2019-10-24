@@ -18,7 +18,7 @@ body {
 
 .heading {
     width: 100vw;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
     height: 62px;
 }
 
@@ -58,6 +58,7 @@ body {
     margin: 0 auto;
     width: fit-content;
     margin-top: 60px;
+    min-width: 40vw;
 }
 
 .youtube {
@@ -80,14 +81,28 @@ body {
 }
 
 .message-time {
-    display: inline-block;
+    display: block;
     color: #888;
-    margin-right: 10px;
 }
 
 .message-text {
-    display: inline-block;
+    display: block;
+}
 
+.footer {
+    display: block;
+    width: 100%;
+    background: #33778f;
+    margin-top: 30px;
+    color: white;
+    background-image: url("footer.png");
+    padding: 20px;
+    position: relative;
+}
+
+.creds {
+    text-align: right;
+    margin-right: 20px;
 }
 
 
