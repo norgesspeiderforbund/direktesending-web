@@ -58,6 +58,11 @@
                     }
                 }
             });
+
+            db.ref('/live').on('value', function (s) {
+
+            });
+
         </script>
 
     </head>
@@ -84,9 +89,21 @@
                 Strømming: Mats Grønseth<br>
                 Utvikling: Andreas Røste<br><br>
 
-                Norges speiderforbund (c) 2019
+                Norges speiderforbund (c) 2019<br>
+                Siden bruker Google Analytics for å se hvor mange som benytter seg av den.
             </div>
         </div>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128564508-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-128564508-1');
+        </script>
+
     </body>
 
 </html>
