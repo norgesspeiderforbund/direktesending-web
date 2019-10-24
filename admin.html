@@ -123,20 +123,16 @@
     </head>
 
     <body>
-        <div id="auth">
+        <div id="noauth">
             <button onclick="login()" class="login" name="loginbtn">Send innloggingslenke</button>
         </div>
-        <div id="noauth">
+        <div id="auth">
             <div class="heading">
                 <img src="https://speiding.no/assets/images/logo.png" alt="" class="logo">
+                <span class="live-text">&#9679; Direkte</span>
             </div>
             <div class="content">
-                <div class="flex">
-                    <h1 class="big">Streaming admin</h1>
-                    <div>
-                        <span class="live-text">&#9679; Direkte</span>
-                    </div>
-                </div>
+                <h1 class="big">Streaming admin</h1>
                 <div class="flex">
                     <input type="text" id="inputtext" onkeydown="keydown(event)" placeholder="Tekst her...">
                     <button>Publiser</button>
