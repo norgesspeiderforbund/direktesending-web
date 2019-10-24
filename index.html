@@ -30,27 +30,31 @@
 
             const db = firebase.database();
 
-            db.ref('/messages').on('value', function(s) {
+            db.ref('/messages').on('value', function (s) {
 
                 console.log(s.val());
 
-                s.val().forEach(function (message) {
-                    let element = document.createElement('div');
-                    element.className = 'message';
-                    
-                    let text_el = document.createElement('div');
-                    text_el.className = 'message-text';
-                    text_el.innerHTML = message.text;
-                    
-                    let timestamp_el = document.createElement('div');
-                    timestamp_el.className = 'message-time';
-                    timestamp_el.innerText = message.time;
+                for (const msg in s.val()) {
+                    if (s.val().hasOwnProperty(msg)) {
+                        const message = s.val()[msg];
 
-                    element.appendChild(timestamp_el);
-                    element.appendChild(text_el);
+                        let element = document.createElement('div');
+                        element.className = 'message';
 
-                    document.getElementById('messages').prepend(element);
-                })
+                        let text_el = document.createElement('div');
+                        text_el.className = 'message-text';
+                        text_el.innerHTML = message.text;
+
+                        let timestamp_el = document.createElement('div');
+                        timestamp_el.className = 'message-time';
+                        timestamp_el.innerText = message.time;
+
+                        element.appendChild(timestamp_el);
+                        element.appendChild(text_el);
+
+                        document.getElementById('messages').prepend(element);
+                    }
+                }
             });
         </script>
 
@@ -68,7 +72,8 @@
                 </div>
             </div>
             <div class="flex">
-                <iframe class="youtube" src="https://www.youtube.com/embed/oMrv7HpPjNU?&autoplay=1" frameborder="0"></iframe>
+                <iframe class="youtube" src="https://www.youtube.com/embed/oMrv7HpPjNU?&autoplay=1"
+                    frameborder="0"></iframe>
                 <div class="messages" id="messages"></div>
             </div>
         </div>
