@@ -62,8 +62,10 @@
             db.ref('/live').on('value', function (s) {
                 if(s.val()) {
                     document.getElementById('live-text').classList.remove('not-live');
+                    document.getElementById('live-text').innerHTML = '&#9679; På luften';
                 }else{
                     document.getElementById('live-text').classList.add('not-live');
+                    document.getElementById('live-text').innerText = 'Ikke på';
                 }
             });
 
