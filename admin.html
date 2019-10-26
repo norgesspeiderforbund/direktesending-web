@@ -127,6 +127,10 @@
                 }
             }
 
+            function setLive(live) {
+                db.ref('/live').set(live);
+            }
+
 
             function login() {
                 var actionCodeSettings = {
@@ -157,6 +161,8 @@
                     <h1 class="big">Streaming admin</h1>
                     <h2 id="clock"></h2>
                 </div>
+                <button onclick="setLive(true)">Live</button>
+                <button onclick="setLive(false)">Ikke live</button>
                 <input type="text" id="inputtext" onkeydown="keydown(event)" placeholder="Tekst her..." />
                 <div id="messages"></div>
             </div>
