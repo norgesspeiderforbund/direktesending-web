@@ -51,6 +51,11 @@ body {
     align-self: center;
 }
 
+.not-live {
+    background: #333;
+    box-shadow: none;
+}
+
 .content {
     display: block;
     margin: 0 auto;

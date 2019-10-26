@@ -60,7 +60,11 @@
             });
 
             db.ref('/live').on('value', function (s) {
-
+                if(s.val()) {
+                    document.getElementById('live-text').classList.remove('not-live');
+                }else{
+                    document.getElementById('live-text').classList.add('not-live');
+                }
             });
 
         </script>
@@ -75,7 +79,7 @@
             <div class="flex">
                 <h1 class="big">KL/KS samling</h1>
                 <div>
-                    <span class="live-text">&#9679; Direkte</span>
+                    <span class="live-text not-live" id="live-text">&#9679; Direkte</span>
                 </div>
             </div>
             <div class="flex flex-2">
