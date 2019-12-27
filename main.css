@@ -108,6 +108,10 @@ body {
     margin-right: 20px;
 }
 
+.hide {
+    display: none;
+}
+
 
 
 @media screen and (max-width: 1000px) {
