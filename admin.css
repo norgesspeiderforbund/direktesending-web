@@ -25,6 +25,30 @@
     outline: none;
 }
 
+#livebtn {
+    border: none;
+    background: rgba(255, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#unlivebtn {
+    border: none;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.livebtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.content {
+    max-width: 40vw;
+}
+
 .deletebtn {
     background: rgba(255, 0, 0, 0.4);
     border: none;

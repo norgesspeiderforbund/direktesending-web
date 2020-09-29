@@ -76,6 +76,16 @@
                 }
             });
 
+            db.ref('/live').on('value', function (s) {
+                if (s.val()) {
+                    document.getElementById('livebtn').classList.add('hidden');
+                    document.getElementById('unlivebtn').classList.remove('hidden');
+                } else {
+                    document.getElementById('livebtn').classList.remove('hidden');
+                    document.getElementById('unlivebtn').classList.add('hidden');
+                }
+            });
+
             auth.onAuthStateChanged(function (user) {
                 if (user) {
                     document.getElementById('auth').classList.remove('hidden');
@@ -149,20 +159,20 @@
     </head>
 
     <body>
-        <div id="noauth">
+        <div id="auth">
             <button onclick="login()" class="login" name="loginbtn">Send innloggingslenke</button>
         </div>
-        <div id="auth">
+        <div id="noauth">
             <div class="heading">
                 <img src="https://speiding.no/assets/images/logo.png" alt="" class="logo">
             </div>
             <div class="content">
                 <div class="flex">
-                    <h1 class="big">Streaming admin</h1>
+                    <h1 class="big">Direktereferat</h1>
                     <h2 id="clock"></h2>
                 </div>
-                <button onclick="setLive(true)">Live</button>
-                <button onclick="setLive(false)">Ikke live</button>
+                <button class="livebtn" id="livebtn" onclick="setLive(true)">Sett til live</button>
+                <button class="livebtn" id="unlivebtn" onclick="setLive(false)">Sett til ikke live</button>
                 <input type="text" id="inputtext" onkeydown="keydown(event)" placeholder="Tekst her..." />
                 <div id="messages"></div>
             </div>
