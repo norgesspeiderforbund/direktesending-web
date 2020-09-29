@@ -8,67 +8,82 @@
         <link rel="stylesheet" href="main.css">
         <title>Norges speiderforbund - Direktesendinger</title>
 
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
-
-        <!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
-
         <script>
-            // Your web app's Firebase configuration
-            var firebaseConfig = {
-                apiKey: "AIzaSyCL4fl3EhPZ6UJW5xxiXsVL4lBZ0eJ1Mf8",
-                authDomain: "rst18-sms.firebaseapp.com",
-                databaseURL: "https://rst18-sms.firebaseio.com",
-                projectId: "rst18-sms",
-                storageBucket: "rst18-sms.appspot.com",
-                messagingSenderId: "678434864453",
-                appId: "1:678434864453:web:fb9243c6d8693c031e922c"
-            };
-            // Initialize Firebase
-            firebase.initializeApp(firebaseConfig);
 
-            const db = firebase.database();
+            let youtubeid = '';
 
-            db.ref('/messages').on('value', function (s) {
+            function refresh() {
+                fetch("https://sheets.googleapis.com/v4/spreadsheets/1CpHngh4ek1hBLbtZ6w23MpQLscfCEYc5xaAMGy7ytvg/values/Sheet1!B:D?key=AIzaSyCw0x9Qv_3qAdR-lS3z0Rf9UPncGUQi2lY")
+                    .then(function(e){
+                        return e.json();
+                    }).then(function(e) {
 
-                console.log(s.val());
+                        let tittel = e['values'][0][0];
+                        let livestatus = e['values'][2][0];
+                        let aktivert = e['values'][1][0];
+                        let nyyoutubeid = e['values'][3][0];
+                        let ikkeklartekst = e['values'][4][0];
 
-                document.getElementById('messages').innerHTML = '';
 
-                for (const msg in s.val()) {
-                    if (s.val().hasOwnProperty(msg)) {
-                        const message = s.val()[msg];
+                        // Tittel på nettsted
+                        document.getElementById('title').innerText = tittel;
 
-                        let element = document.createElement('div');
-                        element.className = 'message';
+                        // På luften eller ikke
+                        if(livestatus == "TRUE"){
+                            document.getElementById('live-text').classList.remove('not-live');
+                            document.getElementById('live-text').innerHTML = '&#9679; På luften';
+                        }else{
+                            document.getElementById('live-text').classList.add('not-live');
+                            document.getElementById('live-text').innerText = 'Av luften';
+                        }
 
-                        let text_el = document.createElement('div');
-                        text_el.className = 'message-text';
-                        text_el.innerHTML = message.text;
+                        // Livereferat
+                        document.getElementById('messages').innerHTML = "";
+                        for(let i = 0; i < e['values'].length; i++){
 
-                        let timestamp_el = document.createElement('div');
-                        timestamp_el.className = 'message-time';
-                        timestamp_el.innerText = message.time;
+                            if(typeof e['values'][i][2] == 'undefined') continue;
+                            if(typeof e['values'][i][1] == 'undefined') continue;
 
-                        element.appendChild(timestamp_el);
-                        element.appendChild(text_el);
+                            let element = document.createElement('div');
+                            element.className = 'message';
 
-                        document.getElementById('messages').prepend(element);
-                    }
-                }
-            });
+                            let text_el = document.createElement('div');
+                            text_el.className = 'message-text';
+                            text_el.innerHTML = e['values'][i][2];
 
-            db.ref('/live').on('value', function (s) {
-                if(s.val()) {
-                    document.getElementById('live-text').classList.remove('not-live');
-                    document.getElementById('live-text').innerHTML = '&#9679; På luften';
-                }else{
-                    document.getElementById('live-text').classList.add('not-live');
-                    document.getElementById('live-text').innerText = 'Ikke på';
-                }
-            });
+                            let timestamp_el = document.createElement('div');
+                            timestamp_el.className = 'message-time';
+                            timestamp_el.innerText = e['values'][i][1];
 
+                            element.appendChild(timestamp_el);
+                            element.appendChild(text_el);
+
+                            document.getElementById('messages').prepend(element);
+                        }
+
+                        if(youtubeid != nyyoutubeid){
+                            document.getElementById('youtube').src = "https://youtube.com/embed/" + nyyoutubeid + "?autoplay=1";
+                            youtubeid = nyyoutubeid;
+                        }
+
+                        if(aktivert == "FALSE"){
+                            document.getElementById('youtube').classList.add('hide');
+                            document.getElementById('messages').classList.add('hide');
+                            document.getElementById('notreadymsg').classList.remove('hide');
+                            document.getElementById('notreadymsg').innerText = ikkeklartekst;
+                        }else{
+                            document.getElementById('youtube').classList.remove('hide');
+                            document.getElementById('messages').classList.remove('hide');
+                            document.getElementById('notreadymsg').classList.add('hide');
+                        }
+
+
+                    });
+            }
+
+            refresh();
+
+            setInterval(refresh, 5000);
         </script>
 
     </head>
@@ -79,21 +94,16 @@
         </div>
         <div class="content">
             <div class="flex">
-                <h1 class="big">Roverforum 2020</h1>
+                <h1 class="big" id="title">Direktesending</h1>
                 <div>
                     <span class="live-text not-live" id="live-text">&#9679; Direkte</span>
                 </div>
             </div>
             <div class="flex flex-2">
-                <!-- <iframe class="youtube" src="https://www.youtube.com/embed/3l4Y_D8hHus?&autoplay=1"
-                    frameborder="0"></iframe> -->
-                    <div class="youtube">Sendingen dukker opp her fredag 9. oktober :)  </div>
-                <div class="messages" id="messages"></div>
+                <iframe id="youtube" class="youtube hide" frameborder="0"></iframe>
+                <div id="notreadymsg" class="youtube hide"></div>
+                <div class="messages hide" id="messages"></div>
             </div>
-            <!--<div class="mellomtiden">
-                <h1>Hei!</h1>
-                <h2>Norges speiderforbund har for tiden ingen direktesendinger.</h2>
-            </div>-->
 
         </div>
         <div class="footer">
