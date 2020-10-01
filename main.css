@@ -94,6 +94,16 @@ body {
     display: block;
 }
 
+.infoboks {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+    margin-top: 60px;
+    min-width: 40vw;
+    background: #e7e4df;
+    padding: 10px;
+}
+
 .footer {
     display: block;
     width: 100%;

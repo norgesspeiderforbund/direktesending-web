@@ -23,6 +23,7 @@
                         let aktivert = e['values'][1][0];
                         let nyyoutubeid = e['values'][3][0];
                         let ikkeklartekst = e['values'][4][0];
+                        let infoboks = e['values'][5][0];
 
 
                         // Tittel på nettsted
@@ -77,6 +78,8 @@
                             document.getElementById('notreadymsg').classList.add('hide');
                         }
 
+                        document.getElementById('infoboks').innerHTML = infoboks;
+
 
                     });
             }
@@ -104,8 +107,8 @@
                 <div id="notreadymsg" class="youtube hide"></div>
                 <div class="messages hide" id="messages"></div>
             </div>
-
         </div>
+        <div class="infoboks" id="infoboks"></div>
         <div class="footer">
             <div class="creds">
                 Video/audio: Trond Anders Nordby<br>
