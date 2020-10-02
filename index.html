@@ -69,11 +69,13 @@
 
                         if(aktivert == "FALSE"){
                             document.getElementById('youtube').classList.add('hide');
+                            document.getElementById('infoboks').classList.add('hide');
                             document.getElementById('messages').classList.add('hide');
                             document.getElementById('notreadymsg').classList.remove('hide');
                             document.getElementById('notreadymsg').innerText = ikkeklartekst;
                         }else{
                             document.getElementById('youtube').classList.remove('hide');
+                            document.getElementById('infoboks').classList.remove('hide');
                             document.getElementById('messages').classList.remove('hide');
                             document.getElementById('notreadymsg').classList.add('hide');
                         }
